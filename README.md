@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/dannyroberts/xml2json.png)](https://travis-ci.org/dannyroberts/xml2json)
+
 xml2json
 ========
 
