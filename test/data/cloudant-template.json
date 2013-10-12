@@ -8,7 +8,7 @@
     "birth_control_pills_distributed": "0",
     "case": {
         "@case_id": "{case_id}",
-        "@date_modified": "2013-03-09T06:30:09Z",
+        "@date_modified": "2013-03-09T06:30:09.007+03",
         "@user_id": "test",
         "@xmlns": "http://commcarehq.org/case/transaction/v2",
         "update": {
@@ -55,8 +55,8 @@
         },
         "deviceID": "358510043913306",
         "instanceID": "{instance_id}",
-        "timeEnd": "2013-03-09T06:30:09Z",
-        "timeStart": "2013-03-09T06:26:56Z",
+        "timeEnd": "2013-03-09T06:30:09.007+03",
+        "timeStart": "2013-03-09T06:26:56.240+03",
         "userID": "test",
         "username": "test"
     },
