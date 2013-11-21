@@ -3,7 +3,16 @@ import lxml.etree
 
 
 def xml2json(xml_string):
-    xml = lxml.etree.fromstring(xml_string)
+    """
+    raises xml2json.XMLSyntaxError
+
+    """
+    try:
+        xml = lxml.etree.fromstring(xml_string)
+    except lxml.etree.XMLSyntaxError:
+        # conveniently lxml.etree.XMLSyntaxError equals xml2json.XMLSyntaxError
+        raise
+
     return convert_xml_to_json(xml)
 
 
