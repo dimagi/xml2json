@@ -17,9 +17,19 @@ def xml2json(xml_string):
 
 
 def convert_xml_to_json(xml, last_xmlns=None):
+    try:
+        tag = unicode(xml.tag.split('}')[1])
+    except IndexError:
+        # This case comes up when you have something like
+        #     <n0:foo xmlns:n0="http://foo.com/bar">
+        #         <bar>baz</bar>
+        #     </n0:foo>
+        # in which case tag for bar is not '{}bar' but simply 'bar'
+        tag = unicode(xml.tag)
+        xmlns = None
+    else:
+        xmlns = unicode(xml.tag.split('}')[0][1:])
 
-    tag = unicode(xml.tag.split('}')[1])
-    xmlns = unicode(xml.tag.split('}')[0][1:])
 
     attributes = {}
     for key, value in xml.attrib.items():
@@ -36,7 +46,9 @@ def convert_xml_to_json(xml, last_xmlns=None):
     text = xml.text or ''
     text = unicode(text)
 
-    if xmlns != last_xmlns:
+    # check for None because you don't want something like
+    # {'@xmlns': None, '#text': 'foo'}
+    if xmlns not in (last_xmlns, None):
         attributes[u'@xmlns'] = xmlns
 
     if attributes or children:
