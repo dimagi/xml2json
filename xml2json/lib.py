@@ -1,4 +1,3 @@
-from collections import defaultdict
 import lxml.etree
 
 
@@ -35,13 +34,18 @@ def convert_xml_to_json(xml, last_xmlns=None):
     for key, value in xml.attrib.items():
         attributes[u'@{0}'.format(key)] = unicode(value)
 
-    children = defaultdict(list)
+    children = {}
     for child in xml:
         key, value = convert_xml_to_json(child, last_xmlns=xmlns)
-        children[unicode(key)].append(value)
-
-    children = dict((key, value[0] if len(value) == 1 else value)
-                    for key, value in children.items())
+        key = unicode(key)
+        if key in children:
+            prev_value = children[key]
+            if isinstance(prev_value, list):
+                prev_value.append(value)
+            else:
+                children[key] = [prev_value, value]
+        else:
+            children[key] = value
 
     text = xml.text or ''
     text = unicode(text)
