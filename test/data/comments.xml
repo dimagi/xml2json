@@ -1,0 +1,21 @@
+<case xmlns="http://commcarehq.org/case/transaction/v2" case_id="" user_id="" date_modified="" >
+    <!-- user_id - At Most One: the GUID of the user responsible for this transaction -->
+    <!-- case_id - Exactly One: The id of the abstract case to be modified (even in the case of creation) -->
+    <!-- date_modified - Exactly One: The date and time of this operation -->
+    <create>
+        <case_type/>pregnancy<case_type/>
+        <!-- Exactly One: The ID for the type of case represented -->
+        <owner_id>1234567890-asdfghjkl</owner_id>
+        <!-- At Most One: The GUID of the current owner of this case -->
+        <case_name>Test</case_name>
+        <!-- Exactly One: A semantically meaningless but human readable name associated with the case -->
+    </create>
+    <update/>
+    <!-- At Most One: Updates data for the case -->
+    <index/>
+    <!-- At Most One: Contains a set of referenced GUID\'s to other cases -->
+    <attachment/>
+    <!-- (Since 2.5) At Most One: Contains pointers to binary attachments to include with this case -->
+    <close/>
+    <!-- At Most One: Closes the case -->
+</case>
