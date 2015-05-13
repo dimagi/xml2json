@@ -1,5 +1,7 @@
 import lxml.etree
 
+xml2json_parser = lxml.etree.XMLParser(remove_comments=True)
+
 
 def xml2json(xml_string):
     """
@@ -7,7 +9,7 @@ def xml2json(xml_string):
 
     """
     try:
-        xml = lxml.etree.fromstring(xml_string)
+        xml = lxml.etree.fromstring(xml_string, parser=xml2json_parser)
     except lxml.etree.XMLSyntaxError:
         # conveniently lxml.etree.XMLSyntaxError equals xml2json.XMLSyntaxError
         raise

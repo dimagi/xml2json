@@ -39,3 +39,6 @@ class Xml2JsonTestCase(unittest2.TestCase):
 
     def test_namespaces(self):
         self._test('namespaces')
+
+    def test_comments(self):
+        self._test('comments')
