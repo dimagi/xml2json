@@ -1,4 +1,7 @@
+from __future__ import absolute_import
+from __future__ import unicode_literals
 import lxml.etree
+import six
 
 xml2json_parser = lxml.etree.XMLParser(remove_comments=True)
 
@@ -19,27 +22,27 @@ def xml2json(xml_string):
 
 def convert_xml_to_json(xml, last_xmlns=None):
     try:
-        tag = unicode(xml.tag.split('}')[1])
+        tag = six.text_type(xml.tag.split('}')[1])
     except IndexError:
         # This case comes up when you have something like
         #     <n0:foo xmlns:n0="http://foo.com/bar">
         #         <bar>baz</bar>
         #     </n0:foo>
         # in which case tag for bar is not '{}bar' but simply 'bar'
-        tag = unicode(xml.tag)
+        tag = six.text_type(xml.tag)
         xmlns = None
     else:
-        xmlns = unicode(xml.tag.split('}')[0][1:])
+        xmlns = six.text_type(xml.tag.split('}')[0][1:])
 
 
     attributes = {}
     for key, value in xml.attrib.items():
-        attributes[u'@{0}'.format(key)] = unicode(value)
+        attributes[u'@{0}'.format(key)] = six.text_type(value)
 
     children = {}
     for child in xml:
         key, value = convert_xml_to_json(child, last_xmlns=xmlns)
-        key = unicode(key)
+        key = six.text_type(key)
         if key in children:
             prev_value = children[key]
             if isinstance(prev_value, list):
@@ -50,7 +53,7 @@ def convert_xml_to_json(xml, last_xmlns=None):
             children[key] = value
 
     text = xml.text or ''
-    text = unicode(text)
+    text = six.text_type(text)
 
     # check for None because you don't want something like
     # {'@xmlns': None, '#text': 'foo'}
