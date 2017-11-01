@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 import lxml.etree
 
 xml2json_parser = lxml.etree.XMLParser(remove_comments=True)
