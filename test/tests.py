@@ -15,7 +15,7 @@ class Xml2JsonTestCase(unittest2.TestCase):
         with open(os.path.join(os.path.dirname(__file__), 'data', '{0}.xml'.format(filename))) as f:
             xml_form = f.read()
         name, result = xml2json(xml_form)
-        result[u'#type'] = name
+        result['#type'] = name
         self.assertEqual(result, json_form)
 
     def test_cloudant_template(self):

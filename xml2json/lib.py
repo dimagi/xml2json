@@ -37,7 +37,7 @@ def convert_xml_to_json(xml, last_xmlns=None):
 
     attributes = {}
     for key, value in xml.attrib.items():
-        attributes[u'@{0}'.format(key)] = six.text_type(value)
+        attributes['@{0}'.format(key)] = six.text_type(value)
 
     children = {}
     for child in xml:
@@ -58,13 +58,13 @@ def convert_xml_to_json(xml, last_xmlns=None):
     # check for None because you don't want something like
     # {'@xmlns': None, '#text': 'foo'}
     if xmlns not in (last_xmlns, None):
-        attributes[u'@xmlns'] = xmlns
+        attributes['@xmlns'] = xmlns
 
     if attributes or children:
         result = attributes
         result.update(children)
         if text.strip():
-            result[u'#text'] = text
+            result['#text'] = text
     else:
         result = text
 
