@@ -4,15 +4,22 @@ import json
 import os
 import unittest2
 from xml2json import xml2json
+from io import open
 
 
 class Xml2JsonTestCase(unittest2.TestCase):
     maxDiff = None
 
     def _test(self, filename):
-        with open(os.path.join(os.path.dirname(__file__), 'data', '{0}.json'.format(filename))) as f:
+        with open(
+            os.path.join(os.path.dirname(__file__), 'data', '{0}.json'.format(filename)),
+            encoding='utf-8'
+        ) as f:
             json_form = json.load(f)
-        with open(os.path.join(os.path.dirname(__file__), 'data', '{0}.xml'.format(filename))) as f:
+        with open(
+            os.path.join(os.path.dirname(__file__), 'data', '{0}.xml'.format(filename)),
+            encoding='utf-8'
+        ) as f:
             xml_form = f.read()
         name, result = xml2json(xml_form)
         result['#type'] = name
