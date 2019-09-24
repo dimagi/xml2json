@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 import lxml.etree
 import six
 
-xml2json_parser = lxml.etree.XMLParser(remove_comments=True)
+xml2json_parser = lxml.etree.XMLParser(remove_comments=True, resolve_entities=True)
 
 
 def xml2json(xml_string):
