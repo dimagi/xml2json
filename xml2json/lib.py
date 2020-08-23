@@ -25,20 +25,7 @@ def get_xml_from_string(xml_string):
 
 
 def convert_xml_to_json(xml, last_xmlns=None):
-    try:
-        tag = six.text_type(xml.tag.split('}')[1])
-    except IndexError:
-        # This case comes up when you have something like
-        #     <n0:foo xmlns:n0="http://foo.com/bar">
-        #         <bar>baz</bar>
-        #     </n0:foo>
-        # in which case tag for bar is not '{}bar' but simply 'bar'
-        tag = six.text_type(xml.tag)
-        xmlns = None
-    else:
-        xmlns = six.text_type(xml.tag.split('}')[0][1:])
-
-
+    tag, xmlns = get_tag_and_xmlns(xml)
     attributes = {}
     for key, value in xml.attrib.items():
         attributes['@{0}'.format(key)] = six.text_type(value)
@@ -73,3 +60,20 @@ def convert_xml_to_json(xml, last_xmlns=None):
         result = text
 
     return tag, result
+
+
+def get_tag_and_xmlns(xml):
+    try:
+        tag = six.text_type(xml.tag.split('}')[1])
+    except IndexError:
+        # This case comes up when you have something like
+        #     <n0:foo xmlns:n0="http://foo.com/bar">
+        #         <bar>baz</bar>
+        #     </n0:foo>
+        # in which case tag for bar is not '{}bar' but simply 'bar'
+        tag = six.text_type(xml.tag)
+        xmlns = None
+    else:
+        xmlns = six.text_type(xml.tag.split('}')[0][1:])
+    return tag, xmlns
+
