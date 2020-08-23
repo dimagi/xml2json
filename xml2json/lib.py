@@ -11,13 +11,17 @@ def xml2json(xml_string):
     raises xml2json.XMLSyntaxError
 
     """
+    xml = get_xml_from_string(xml_string)
+    return convert_xml_to_json(xml)
+
+
+def get_xml_from_string(xml_string):
     try:
         xml = lxml.etree.fromstring(xml_string, parser=xml2json_parser)
     except lxml.etree.XMLSyntaxError:
         # conveniently lxml.etree.XMLSyntaxError equals xml2json.XMLSyntaxError
         raise
-
-    return convert_xml_to_json(xml)
+    return xml
 
 
 def convert_xml_to_json(xml, last_xmlns=None):
