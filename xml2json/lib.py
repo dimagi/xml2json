@@ -1,7 +1,6 @@
 from __future__ import absolute_import
 from __future__ import unicode_literals
 import lxml.etree
-import six
 
 xml2json_parser = lxml.etree.XMLParser(remove_comments=True, resolve_entities=False)
 
@@ -28,12 +27,12 @@ def convert_xml_to_json(xml, last_xmlns=None):
     tag, xmlns = get_tag_and_xmlns(xml)
     attributes = {}
     for key, value in xml.attrib.items():
-        attributes['@{0}'.format(key)] = six.text_type(value)
+        attributes['@{0}'.format(key)] = str(value)
 
     children = {}
     for child in xml:
         key, value = convert_xml_to_json(child, last_xmlns=xmlns)
-        key = six.text_type(key)
+        key = str(key)
         if key in children:
             prev_value = children[key]
             if isinstance(prev_value, list):
@@ -44,7 +43,7 @@ def convert_xml_to_json(xml, last_xmlns=None):
             children[key] = value
 
     text = xml.text or ''
-    text = six.text_type(text)
+    text = str(text)
 
     # check for None because you don't want something like
     # {'@xmlns': None, '#text': 'foo'}
@@ -64,16 +63,16 @@ def convert_xml_to_json(xml, last_xmlns=None):
 
 def get_tag_and_xmlns(xml):
     try:
-        tag = six.text_type(xml.tag.split('}')[1])
+        tag = str(xml.tag.split('}')[1])
     except IndexError:
         # This case comes up when you have something like
         #     <n0:foo xmlns:n0="http://foo.com/bar">
         #         <bar>baz</bar>
         #     </n0:foo>
         # in which case tag for bar is not '{}bar' but simply 'bar'
-        tag = six.text_type(xml.tag)
+        tag = str(xml.tag)
         xmlns = None
     else:
-        xmlns = six.text_type(xml.tag.split('}')[0][1:])
+        xmlns = str(xml.tag.split('}')[0][1:])
     return tag, xmlns
 
