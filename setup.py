@@ -4,7 +4,7 @@ from setuptools import setup
 
 setup(
     name='xml2json',
-    version='0.0.0',
+    version='0.1.0',
     author='Danny Roberts',
     author_email='droberts@dimagi.com',
     description='A library for converting XML to JSON',
