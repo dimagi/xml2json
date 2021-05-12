@@ -2,12 +2,12 @@ from __future__ import absolute_import
 from __future__ import unicode_literals
 import json
 import os
-import unittest2
+from unittest import TestCase
 from xml2json import xml2json
 from io import open
 
 
-class Xml2JsonTestCase(unittest2.TestCase):
+class Xml2JsonTestCase(TestCase):
     maxDiff = None
 
     def _test(self, filename):
