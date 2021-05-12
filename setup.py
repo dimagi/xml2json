@@ -12,6 +12,5 @@ setup(
     url='',
     packages=['xml2json'],
     install_requires=['lxml'],
-    tests_require=['unittest2'],
     test_suite='test',
 )
